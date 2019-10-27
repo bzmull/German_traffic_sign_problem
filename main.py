@@ -130,8 +130,8 @@ initialize_data(args.data) # extracts the zip files, makes a validation set
 
 train_loader = torch.utils.data.DataLoader(
     datasets.ImageFolder(args.data + '/train_images',
-                         #transform=train_data_transform),
-                         transform=train_data_transform),
+                         transform=data_transforms),  # original transform for training data
+                         # transform=train_data_transform),
     batch_size=args.batch_size, shuffle=True, num_workers=1)
 val_loader = torch.utils.data.DataLoader(
     datasets.ImageFolder(args.data + '/val_images',
