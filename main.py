@@ -31,12 +31,13 @@ args = parser.parse_args()
 torch.manual_seed(args.seed)
 
 ### Data Initialization and Loading
-from data import initialize_data, data_transforms, train_data_transform  # data.py in the same folder
+from data import initialize_data, data_transforms, train_data_transform, data_transforms_grayscale  # data.py in the same folder
 initialize_data(args.data) # extracts the zip files, makes a validation set
 
 train_loader = torch.utils.data.DataLoader(
     datasets.ImageFolder(args.data + '/train_images',
-                         transform=train_data_transform),
+                         transform=data_transforms),
+                         # transform=train_data_transform),
     batch_size=args.batch_size, shuffle=True, num_workers=1)
 val_loader = torch.utils.data.DataLoader(
     datasets.ImageFolder(args.data + '/val_images',
