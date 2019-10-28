@@ -49,7 +49,8 @@ val_loader = torch.utils.data.DataLoader(
 from model import Net
 model = Net()
 
-optimizer = optim.Adam(model.parameters(), lr=args.lr, momentum=args.momentum)
+# optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
+optimizer = optim.Adam(model.parameters(), lr=args.lr)
 
 def train(epoch):
     model.train()
