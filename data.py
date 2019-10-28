@@ -14,12 +14,12 @@ data_transforms = transforms.Compose([
     transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
 ])
 train_data_transform = transforms.Compose([
-    # transforms.Grayscale(num_output_channels=1),  # applied grayscale to images
+    # transforms.Grayscale(num_output_channels=1),  # applied grayscale to images # SWITCH TO GRAYSCALE
     transforms.ColorJitter(brightness=(1, 2.5), contrast=(1, 2), saturation=0, hue=0),  # randomly adjust brightness, contrast, etc. of images
     transforms.Resize((32, 32)),
     transforms.ToTensor(),
-    transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
-    # transforms.Normalize((0.3337,), (0.2672,))  # images are grayscaled which means one channel ==> normalize only one dimension
+    transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))  # SWITCH TO NON_GRAYSCALE
+    # transforms.Normalize((0.3337,), (0.2672,))  # images are grayscaled which means one channel ==> normalize only one dimension  # SWITCH TO GRAYSCALE
 ])
 
 
