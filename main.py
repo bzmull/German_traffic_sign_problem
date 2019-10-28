@@ -4,8 +4,11 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
-from torchvision import datasets, transforms
+from torchvision import datasets, transforms, utils
 from torch.autograd import Variable
+
+# import matplotlib.pyplot as plt
+# import numpy as np
 
 # Training settings
 parser = argparse.ArgumentParser(description='PyTorch GTSRB example')
@@ -28,12 +31,12 @@ args = parser.parse_args()
 torch.manual_seed(args.seed)
 
 ### Data Initialization and Loading
-from data import initialize_data, data_transforms # data.py in the same folder
+from data import initialize_data, data_transforms, train_data_transform  # data.py in the same folder
 initialize_data(args.data) # extracts the zip files, makes a validation set
 
 train_loader = torch.utils.data.DataLoader(
     datasets.ImageFolder(args.data + '/train_images',
-                         transform=data_transforms),
+                         transform=train_data_transform),
     batch_size=args.batch_size, shuffle=True, num_workers=1)
 val_loader = torch.utils.data.DataLoader(
     datasets.ImageFolder(args.data + '/val_images',
@@ -51,6 +54,12 @@ def train(epoch):
     model.train()
     for batch_idx, (data, target) in enumerate(train_loader):
         data, target = Variable(data), Variable(target)
+
+        # images = utils.make_grid(data).numpy()
+        # plt.imshow(np.transpose(images, (1, 2, 0)))
+        # plt.show()
+
+
         optimizer.zero_grad()
         output = model(data)
         loss = F.nll_loss(output, target)
