@@ -44,8 +44,8 @@ class Net(nn.Module):
         # self.fc1 = nn.Linear(500, 50)
         # self.fc2 = nn.Linear(50, nclasses)
 
-        # self.conv1 = nn.Conv2d(in_channels=1, out_channels=32, kernel_size=2)  # SWITCH TO GRAYSCALE
-        self.conv1 = nn.Conv2d(in_channels=3, out_channels=32, kernel_size=2)  # SWITCH TO NON_GRAYSCALE
+        self.conv1 = nn.Conv2d(in_channels=1, out_channels=32, kernel_size=2)  # SWITCH TO GRAYSCALE
+        # self.conv1 = nn.Conv2d(in_channels=3, out_channels=32, kernel_size=2)  # SWITCH TO NON_GRAYSCALE
         self.conv2 = nn.Conv2d(in_channels=32, out_channels=32, kernel_size=2)  # change kernel to 5 maybe
         self.conv3 = nn.Conv2d(in_channels=32, out_channels=64, kernel_size=2)
         self.conv4 = nn.Conv2d(in_channels=64, out_channels=64, kernel_size=2)
