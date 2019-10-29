@@ -73,6 +73,7 @@ class Net(nn.Module):
         self.linear3 = nn.Linear(128, nclasses)
         self.activation = nn.ReLU()
         self.pool = nn.MaxPool2d(2, 2)
+        self.dropout = nn.Dropout2d()
 # ----------------------------------------------------------------------------------------------------
     def forward(self, x):
 # ---------- ORIGINAL MODEL ------------------------------------------------------------------------------------------
@@ -111,15 +112,15 @@ class Net(nn.Module):
         # print("Start: ", x.shape)
         x = self.activation(self.conv1(x))
         # print("Layer1: ", x.shape)
-        x = self.pool(self.activation(self.conv2(x)))
+        x = self.dropout(self.pool(self.activation(self.conv2(x))))
         # print("Layer3: ", x.shape)
         x = self.activation(self.conv3(x))
         # print("Layer4: ", x.shape)
-        x = self.pool(self.activation(self.conv4(x)))
+        x = self.dropout(self.pool(self.activation(self.conv4(x))))
         # print("Layer6: ", x.shape)
         x = self.activation(self.conv5(x))
         # print("Layer7: ", x.shape)
-        x = self.pool(self.activation(self.conv6(x)))
+        x = self.dropout(self.pool(self.activation(self.conv6(x))))
         # print("Layer9: ", x.shape)
         x = x.view(-1, 128*4*4)
         # print(x.shape)
