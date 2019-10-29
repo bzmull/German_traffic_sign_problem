@@ -99,7 +99,7 @@ class Net(nn.Module):
         # print(x.shape)
         x = self.activation(self.conv5(x))
         x = self.activation(self.conv6(x))
-        x = F.dropout(x, training=self.training)
+        # x = F.dropout(x, training=self.training)
         # print(x.shape)
         x = x.view(-1, 32*8)
         # print(x.shape)

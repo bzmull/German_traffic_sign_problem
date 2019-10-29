@@ -22,7 +22,8 @@ vals_data_transforms = transforms.Compose([
 ])
 train_data_transform = transforms.Compose([
     transforms.Grayscale(num_output_channels=1),  # applied grayscale to images # SWITCH TO GRAYSCALE
-    transforms.ColorJitter(brightness=(1, 2.5), contrast=(1, 2), saturation=0, hue=0),  # randomly adjust brightness, contrast, etc. of images
+    transforms.ColorJitter(brightness=.4, contrast=.4, saturation=.4, hue=.1),  # randomly adjust brightness, contrast, etc. of images
+    transforms.RandomRotation(15),
     transforms.Resize((32, 32)),
     transforms.ToTensor(),
     # transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))  # SWITCH TO NON_GRAYSCALE
