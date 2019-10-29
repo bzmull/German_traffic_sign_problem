@@ -70,16 +70,16 @@ class Net(nn.Module):
         self.fc_loc[2].bias.data.copy_(torch.tensor([1, 0, 0, 0, 1, 0], dtype=torch.float))
 
         # STN Function
-        def stn(self, x):
-            xs = self.localization(x)
-            xs = xs.view(-1, 10 * 3 * 3)
-            theta = self.fc_loc(xs)
-            theta = theta.view(-1, 2, 3)
+    def stn(self, x):
+        xs = self.localization(x)
+        xs = xs.view(-1, 10 * 3 * 3)
+        theta = self.fc_loc(xs)
+        theta = theta.view(-1, 2, 3)
 
-            grid = F.affine_grid(theta, x.size())
-            x = F.grid_sample(x, grid)
+        grid = F.affine_grid(theta, x.size())
+        x = F.grid_sample(x, grid)
 
-            return x
+        return x
 
 # ---------- FIRST MODEL ------------------------------------------------------------------------------------------
 #         self.conv1 = nn.Conv2d(in_channels=1, out_channels=32, kernel_size=2)  # SWITCH TO GRAYSCALE
