@@ -48,7 +48,39 @@ class Net(nn.Module):
         self.fc1 = nn.Linear(20, 50)
         self.fc2 = nn.Linear(50, nclasses)
 # ----------------------------------------------------------------------------------------------------
-        
+# ---------- STN ------------------------------------------------------------------------------------------
+        # Spatial transformer localization-network
+        self.localization = nn.Sequential(
+            nn.Conv2d(1, 8, kernel_size=7),
+            nn.MaxPool2d(2, stride=2),
+            nn.ReLU(True),
+            nn.Conv2d(8, 10, kernel_size=5),
+            nn.MaxPool2d(2, stride=2),
+            nn.ReLU(True)
+        )
+        # Regressor for the 3 * 2 affine matrix
+        self.fc_loc = nn.Sequential(
+            nn.Linear(10 * 3 * 3, 32),
+            nn.ReLU(True),
+            nn.Linear(32, 3 * 2)
+        )
+
+        # Initialize the weights/bias with identity transformation
+        self.fc_loc[2].weight.data.zero_()
+        self.fc_loc[2].bias.data.copy_(torch.tensor([1, 0, 0, 0, 1, 0], dtype=torch.float))
+
+        # STN Function
+        def stn(self, x):
+            xs = self.localization(x)
+            xs = xs.view(-1, 10 * 3 * 3)
+            theta = self.fc_loc(xs)
+            theta = theta.view(-1, 2, 3)
+
+            grid = F.affine_grid(theta, x.size())
+            x = F.grid_sample(x, grid)
+
+            return x
+
 # ---------- FIRST MODEL ------------------------------------------------------------------------------------------
 #         self.conv1 = nn.Conv2d(in_channels=1, out_channels=32, kernel_size=2)  # SWITCH TO GRAYSCALE
 #         # self.conv1 = nn.Conv2d(in_channels=3, out_channels=32, kernel_size=2)  # SWITCH TO NON_GRAYSCALE
@@ -81,6 +113,7 @@ class Net(nn.Module):
 # ----------------------------------------------------------------------------------------------------
     def forward(self, x):
 # ---------- ORIGINAL MODEL ------------------------------------------------------------------------------------------
+        x = self.stn(x)
         x = F.relu(F.max_pool2d(self.conv1(x), 2))
         x = F.relu(F.max_pool2d(self.conv2_drop(self.conv2(x)), 2))
         # print(x.shape)
