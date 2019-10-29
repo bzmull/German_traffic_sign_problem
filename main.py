@@ -7,7 +7,7 @@ import torch.optim as optim
 from torchvision import datasets, transforms, utils
 import torchvision.transforms.functional as TF
 from torch.autograd import Variable
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import numpy as np
 
 # Training settings
