@@ -84,7 +84,8 @@ data_transforms = transforms.Compose([
 transforms.Grayscale(num_output_channels=1),  # use if doing grayscale
     transforms.Resize((32, 32)),
     transforms.ToTensor(),
-    transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
+    # transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
+    transforms.Normalize((0.3337,), (0.2672,))  # images are grayscaled which means one channel ==> normalize only one dimension
 ])
 
 train_data_transform = transforms.Compose([
