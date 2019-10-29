@@ -18,7 +18,7 @@ parser.add_argument('--batch-size', type=int, default=64, metavar='N',
                     help='input batch size for training (default: 64)')
 parser.add_argument('--epochs', type=int, default=30, metavar='N',
                     help='number of epochs to train (default: 10)')
-parser.add_argument('--lr', type=float, default=0.001, metavar='LR',
+parser.add_argument('--lr', type=float, default=0.01, metavar='LR',
                     help='learning rate (default: 0.01)')
 parser.add_argument('--momentum', type=float, default=0.5, metavar='M',
                     help='SGD momentum (default: 0.5)')
@@ -31,17 +31,17 @@ args = parser.parse_args()
 torch.manual_seed(args.seed)
 
 ### Data Initialization and Loading
-from data import initialize_data, data_transforms, train_data_transform, data_transforms_grayscale  # data.py in the same folder
+from data import initialize_data, data_transforms, train_data_transform, vals_data_transforms  # data.py in the same folder
 initialize_data(args.data) # extracts the zip files, makes a validation set
 
 train_loader = torch.utils.data.DataLoader(
     datasets.ImageFolder(args.data + '/train_images',
-                         transform=data_transforms),
+                         transform=train_data_transform),
                          # transform=train_data_transform),
     batch_size=args.batch_size, shuffle=True, num_workers=1)
 val_loader = torch.utils.data.DataLoader(
     datasets.ImageFolder(args.data + '/val_images',
-                         transform=data_transforms),
+                         transform=vals_data_transforms),
     batch_size=args.batch_size, shuffle=False, num_workers=1)
 
 ### Neural Network and Optimizer
