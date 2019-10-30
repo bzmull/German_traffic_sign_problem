@@ -109,6 +109,13 @@ data_translate = transforms.Compose([
     transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
 ])
 
+data_pad = transforms.Compose([
+	transforms.Resize((32, 32)),
+    transforms.Pad(1, padding_mode="reflect"),
+    transforms.ToTensor(),
+    transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
+])
+
 
 def initialize_data(folder):
     train_zip = folder + '/train_images.zip'
