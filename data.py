@@ -13,7 +13,7 @@ data_transforms = transforms.Compose([
     transforms.ToTensor(),
     transforms.Normalize((0.3337, 0.3064, 0.3171), (0.2672, 0.2564, 0.2629))
 ])
-#-----Different data augmentation trnasformations-----
+# -----Different data augmentation trnasformations-----
 
 train_data_transform = transforms.Compose([
     transforms.Resize((32, 32)),
@@ -30,103 +30,94 @@ train_data_transform = transforms.Compose([
     transforms.Normalize((0.3337, 0.3064, 0.3171), (0.2672, 0.2564, 0.2629))
 ])
 # Center crop transformation
-data_center_crop = transforms.Compose([
-	transforms.Resize((32, 32)),
+center_crop_transform = transforms.Compose([
+    transforms.Resize((32, 32)),
     transforms.CenterCrop(32),
     transforms.ToTensor(),
     transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
 ])
 
-# Jitter brightness transformation
-data_jitter_brightness = transforms.Compose([
-	transforms.Resize((32, 32)),
-    transforms.ColorJitter(brightness=0.4),
+jitter_brightness_transform = transforms.Compose([
+    transforms.Resize((32, 32)),
+    transforms.ColorJitter(brightness=0.5),
     transforms.ToTensor(),
     transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
 ])
 
-# Jitter contrast transformation
-data_jitter_contrast = transforms.Compose([
-	transforms.Resize((32, 32)),
-    transforms.ColorJitter(contrast=0.4),
+jitter_contrast_transform = transforms.Compose([
+    transforms.Resize((32, 32)),
+    transforms.ColorJitter(contrast=0.5),
     transforms.ToTensor(),
     transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
 ])
 
-# Jitter saturation transformation
-data_jitter_saturation = transforms.Compose([
-	transforms.Resize((32, 32)),
-    transforms.ColorJitter(saturation=0.4),
+jitter_saturation_transform = transforms.Compose([
+    transforms.Resize((32, 32)),
+    transforms.ColorJitter(saturation=0.5),
     transforms.ToTensor(),
     transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
 ])
 
-# Jitter hue transformation
-data_jitter_hue = transforms.Compose([
-	transforms.Resize((32, 32)),
-    transforms.ColorJitter(hue=0.1),
+jitter_hue_transform = transforms.Compose([
+    transforms.Resize((32, 32)),
+    transforms.ColorJitter(hue=0.3),
     transforms.ToTensor(),
     transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
 ])
 
-# Grayscale transformation
-data_grayscale = transforms.Compose([
-	transforms.Resize((32, 32)),
-    transforms.Grayscale(num_output_channels=3),
-    transforms.ToTensor(),
-    transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
-])
+# # Grayscale transformation
+# data_grayscale = transforms.Compose([
+# 	transforms.Resize((32, 32)),
+#     transforms.Grayscale(num_output_channels=3),
+#     transforms.ToTensor(),
+#     transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
+# ])
 
-# Horizontal flip transformation
-data_horizontal_flip = transforms.Compose([
-	transforms.Resize((32, 32)),
+horizontal_flip_transform = transforms.Compose([
+    transforms.Resize((32, 32)),
     transforms.RandomHorizontalFlip(1),
     transforms.ToTensor(),
     transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
 ])
 
-# Vertical flip transformation
-data_vertical_flip = transforms.Compose([
-	transforms.Resize((32, 32)),
+vertical_flip_transform = transforms.Compose([
+    transforms.Resize((32, 32)),
     transforms.RandomVerticalFlip(1),
     transforms.ToTensor(),
     transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
 ])
-# Forward rotation transformation
-data_forward_rotation = transforms.Compose([
-	transforms.Resize((32, 32)),
-    transforms.RandomRotation((0, 15)),
+
+rotation_transform_1 = transforms.Compose([
+    transforms.Resize((32, 32)),
+    transforms.RandomRotation((0, 20)),
     transforms.ToTensor(),
     transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
 ])
 
-# Backward rotation transformation
-data_backward_rotation = transforms.Compose([
-	transforms.Resize((32, 32)),
-    transforms.RandomRotation((-15, 0)),
+rotation_transform_2 = transforms.Compose([
+    transforms.Resize((32, 32)),
+    transforms.RandomRotation((-20, 0)),
     transforms.ToTensor(),
     transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
 ])
 
-# Shear transformation
-data_shear = transforms.Compose([
-	transforms.Resize((32, 32)),
+shear_transform = transforms.Compose([
+    transforms.Resize((32, 32)),
     transforms.RandomAffine(degrees=10, shear=2),
     transforms.ToTensor(),
     transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
 ])
 
-# Translation transformation
-data_translate = transforms.Compose([
-	transforms.Resize((32, 32)),
+translate_transform = transforms.Compose([
+    transforms.Resize((32, 32)),
     transforms.RandomAffine(degrees=10, translate=(0.15,0.15)),
     transforms.ToTensor(),
     transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
 ])
 
-data_pad = transforms.Compose([
+pad_transform = transforms.Compose([
     transforms.Pad(5, padding_mode="reflect"),
-	transforms.Resize((32, 32)),
+    transforms.Resize((32, 32)),
     transforms.ToTensor(),
     transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
 ])
