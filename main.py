@@ -178,8 +178,8 @@ validation_loss_history = []
 validation_accuracy_history = []
 
 if __name__ == '__main__':
-    # for epoch in range(1, args.epochs + 1):
-    for epoch in range(1, 3 + 1):
+    for epoch in range(1, args.epochs + 1):
+    # for epoch in range(1, 3 + 1):
         train(epoch)
         # Calculate training loss and accuracy
         training_loss_accuracy = train_loss_and_accuracy()
