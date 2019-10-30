@@ -49,26 +49,26 @@ from data import initialize_data, data_transforms, train_data_transform, data_ce
 
 initialize_data(args.data)  # extracts the zip files, makes a validation set
 
-# train_loader = torch.utils.data.DataLoader(
-#     torch.utils.data.ConcatDataset([
-#         datasets.ImageFolder(args.data + '/train_images', transform=data_transforms),
-#         datasets.ImageFolder(args.data + '/train_images', transform=data_center_crop),
-#         datasets.ImageFolder(args.data + '/train_images', transform=data_jitter_brightness),
-#         datasets.ImageFolder(args.data + '/train_images', transform=data_jitter_contrast),
-#         datasets.ImageFolder(args.data + '/train_images', transform=data_jitter_saturation),
-#         datasets.ImageFolder(args.data + '/train_images', transform=data_grayscale),
-#         datasets.ImageFolder(args.data + '/train_images', transform=data_horizontal_flip),
-#         datasets.ImageFolder(args.data + '/train_images', transform=data_vertical_flip),
-#         datasets.ImageFolder(args.data + '/train_images', transform=data_forward_rotation),
-#         datasets.ImageFolder(args.data + '/train_images', transform=data_backward_rotation),
-#         datasets.ImageFolder(args.data + '/train_images', transform=data_shear),
-#         datasets.ImageFolder(args.data + '/train_images', transform=data_translate)]),
-#     batch_size=args.batch_size, shuffle=True, num_workers=4, pin_memory=gpu_active)
-
 train_loader = torch.utils.data.DataLoader(
-    datasets.ImageFolder(args.data + '/train_images',
-                         transform=train_data_transform),
-    batch_size=args.batch_size, shuffle=True, num_workers=1)
+    torch.utils.data.ConcatDataset([
+        datasets.ImageFolder(args.data + '/train_images', transform=data_transforms),
+        datasets.ImageFolder(args.data + '/train_images', transform=data_center_crop),
+        datasets.ImageFolder(args.data + '/train_images', transform=data_jitter_brightness),
+        datasets.ImageFolder(args.data + '/train_images', transform=data_jitter_contrast),
+        datasets.ImageFolder(args.data + '/train_images', transform=data_jitter_saturation),
+        datasets.ImageFolder(args.data + '/train_images', transform=data_grayscale),
+        datasets.ImageFolder(args.data + '/train_images', transform=data_horizontal_flip),
+        datasets.ImageFolder(args.data + '/train_images', transform=data_vertical_flip),
+        datasets.ImageFolder(args.data + '/train_images', transform=data_forward_rotation),
+        datasets.ImageFolder(args.data + '/train_images', transform=data_backward_rotation),
+        datasets.ImageFolder(args.data + '/train_images', transform=data_shear),
+        datasets.ImageFolder(args.data + '/train_images', transform=data_translate)]),
+    batch_size=args.batch_size, shuffle=True, num_workers=4, pin_memory=gpu_active)
+
+# train_loader = torch.utils.data.DataLoader(
+#     datasets.ImageFolder(args.data + '/train_images',
+#                          transform=train_data_transform),
+#     batch_size=args.batch_size, shuffle=True, num_workers=1)
 
 val_loader = torch.utils.data.DataLoader(
     datasets.ImageFolder(args.data + '/val_images',
