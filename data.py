@@ -125,8 +125,8 @@ data_translate = transforms.Compose([
 ])
 
 data_pad = transforms.Compose([
+    transforms.Pad(5, padding_mode="reflect"),
 	transforms.Resize((32, 32)),
-    transforms.Pad(1, padding_mode="reflect"),
     transforms.ToTensor(),
     transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
 ])
