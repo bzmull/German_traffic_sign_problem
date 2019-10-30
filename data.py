@@ -11,9 +11,24 @@ import torchvision.transforms as transforms
 data_transforms = transforms.Compose([
     transforms.Resize((32, 32)),
     transforms.ToTensor(),
-    transforms.Normalize((0.3337, 0.3064, 0.3171), ( 0.2672, 0.2564, 0.2629))
+    transforms.Normalize((0.3337, 0.3064, 0.3171), (0.2672, 0.2564, 0.2629))
 ])
 #-----Different data augmentation trnasformations-----
+
+train_data_transform = transforms.Compose([
+    transforms.Resize((32, 32)),
+    transforms.CenterCrop(32),
+    transforms.ColorJitter(brightness=0.4, contrast=0.4, saturation=0.4, hue=0.4),
+    transforms.Grayscale(num_output_channels=3),
+    transforms.RandomHorizontalFlip(1),
+    transforms.RandomVerticalFlip(1),
+    transforms.RandomRotation((0, 15)),
+    transforms.RandomRotation((-15, 0)),
+    transforms.RandomAffine(degrees=10, shear=2),
+    transforms.RandomAffine(degrees=10, translate=(0.15, 0.15)),
+    transforms.ToTensor(),
+    transforms.Normalize((0.3337, 0.3064, 0.3171), (0.2672, 0.2564, 0.2629))
+])
 # Center crop transformation
 data_center_crop = transforms.Compose([
 	transforms.Resize((32, 32)),
