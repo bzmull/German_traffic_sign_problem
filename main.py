@@ -68,10 +68,15 @@ train_loader = torch.utils.data.DataLoader(
     ]),
     batch_size=args.batch_size, shuffle=True, num_workers=4, pin_memory=gpu_active)
 
+originial_train_loader = torch.utils.data.DataLoader(
+    datasets.ImageFolder(args.data + '/train_images',
+                         transform=data_transforms),
+    batch_size=args.batch_size, shuffle=True, num_workers=4)
+
 val_loader = torch.utils.data.DataLoader(
     datasets.ImageFolder(args.data + '/val_images',
                          transform=data_transforms),
-    batch_size=args.batch_size, shuffle=True, num_workers=1)
+    batch_size=args.batch_size, shuffle=True, num_workers=4)
 
 ### Neural Network and Optimizer
 # We define neural net in model.py so that it can be reused by the evaluate.py script
@@ -129,7 +134,7 @@ def train_loss_and_accuracy():
     model.eval()
     training_loss = 0
     correct = 0
-    for data, target in train_loader:
+    for data, target in originial_train_loader:
         data, target = Variable(data, volatile=True), Variable(target)
         if gpu_active:
             data = data.cuda()
@@ -139,12 +144,12 @@ def train_loss_and_accuracy():
         pred = output.data.max(1, keepdim=True)[1]  # get the index of the max log-probability
         correct += pred.eq(target.data.view_as(pred)).cpu().sum()
 
-    training_loss /= len(train_loader.dataset)
+    training_loss /= len(originial_train_loader.dataset)
     print('\nTraining set: Average loss: {:.4f}, Accuracy: {}/{} ({:.2f}%)\n'.format(
-        training_loss, correct, len(train_loader.dataset),
-        100. * correct / len(train_loader.dataset)))
+        training_loss, correct, len(originial_train_loader.dataset),
+        100. * correct / len(originial_train_loader.dataset)))
 
-    return training_loss, (100. * int(correct) / len(train_loader.dataset))
+    return training_loss, (100. * int(correct) / len(originial_train_loader.dataset))
 
 
 def validation():
